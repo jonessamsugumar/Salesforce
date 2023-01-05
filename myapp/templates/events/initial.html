@@ -1,0 +1,14 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+    <h1>New Request</h1>
+    {% autoescape off %}
+    {{ error_msg }}
+    {% endautoescape %}
+    <br/><br/>
+    <form action="" method=POST>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" class="btn btn-secondary btn-sm float-end">
+    </form>
+{% endblock %}

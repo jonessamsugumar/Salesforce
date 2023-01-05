@@ -1,0 +1,21 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+    {% if searched %}
+        <h1>You Searched For {{ searched }}</h1>
+        <br />
+        {% for request in requ %}
+            <a href="{% url 'show_request' request.request_id %}">
+                {{ request }}
+            </a>
+            <br />
+        {% endfor %}
+
+    {% else %}
+        <h1>Hey! You Forgot To Search For A Request..</h1>
+    {% endif %}
+
+
+
+
+{% endblock %}

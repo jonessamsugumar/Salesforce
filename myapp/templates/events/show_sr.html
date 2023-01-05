@@ -1,0 +1,24 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ request }}</h5>
+            <ul>
+                <li>Request Name: {{ request.request_name }}</li>
+                <li>Conference: {{ request.conference }}</li>
+                <li>Paper Title: {{ request.paper_title }}</li>
+                <li>Exp Results: {{ request.exp_results }}</li>
+                <li>Approval: {{ request.approval }}</li>
+                <li>Patent Application: {{ request.patent_application }}</li>
+                <li>Code Released: {{ request.code_released }}</li>
+                <li>Code Released Likely: {{ request.code_released_likely }}</li>
+                <li>Code Third Party: {{ request.code_third_party }}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card-footer bg-transparent border-success">
+        <div class="small">Opened {{ request.request_id.opened|date:"M j, Y @ H:i" }}
+            by {{ request.request_id.requester }}</div>
+    </div>
+{% endblock %}

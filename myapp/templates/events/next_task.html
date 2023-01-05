@@ -1,0 +1,107 @@
+{% if next_task is not None %}
+    {% if next_task.state == 2 or next_task.state == 3 %}
+        <div class="card border-danger">
+    {% else %}
+        <div class="card border-secondary">
+    {% endif %}
+<div class="card-body">
+    {% if next_task.state == 2 or next_task.state == 3 %}
+        <h5 class="card-header bg-danger text-light">{{ next_task.tasklist.name }}</h5>
+    {% else %}
+        <h5 class="card-header bg-secondary text-light">{{ next_task.tasklist.name }}</h5>
+    {% endif %}
+    {% autoescape off %}
+        <p class="card-text">{{ next_task.tasklist.description }}</p>
+    {% endautoescape %}
+    {% if next_task.state == 2 or next_task.state == 3 %}
+        </div>
+        <div class="card-footer border-danger">
+            <div class="small">Canceled/Denied {{ next_task.closed|date:"M j, Y @ H:i" }} by {{ next_task.email }}</div>
+            <!-- Button trigger modal -->
+            <button type="submit" class="btn btn-secondary btn-sm float-end position-relative" data-bs-toggle="modal"
+                    data-bs-target="#commentModal0">Comments
+                <span class="position-absolute top-10 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ comments|get_value:next_task.tasklist.id|length }}
+            </span>
+            </button>
+        </div>
+    {% else %}
+        {% if form is not None %}
+            <!-- Button trigger modal -->
+            <button type="submit" class="btn btn-secondary btn-sm float-end position-relative" data-bs-toggle="modal"
+                    data-bs-target="#commentModal0">Comments
+                <span class="position-absolute top-10 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ comments|get_value:next_task.tasklist.id|length }}
+            </span>
+            </button>
+            <p>&nbsp;</p>
+            <form action="{% url 'update_request' %}" method=POST>
+                {% csrf_token %}
+                <input type="hidden" name="task_id" value="{{ next_task.id }}">
+                {{ form.as_p }}
+                <input name="action" type="submit" value="Submit" class="btn btn-secondary btn-sm float-end">
+            </form>
+            </div>
+        {% else %}
+            </div>
+            <div class="card-footer  border-secondary">
+                {% if next_task.action_response is not None %}
+                    <div class="small">[Note: <i>{{ next_task.action_response }}</i>]</div
+                {% endif %}
+                <!-- Button trigger modal -->
+                <button type="submit" class="btn btn-secondary btn-sm float-end position-relative" data-bs-toggle="modal"
+                        data-bs-target="#commentModal0">Comments
+                    <span class="position-absolute top-10 start-100 translate-middle badge rounded-pill bg-danger">
+                    {{ comments|get_value:next_task.tasklist.id|length }}
+                </span>
+                </button>
+
+                <form action="{% url 'update_request' %}" method=POST>
+                    {% csrf_token %}
+                    <input type="hidden" name="request_id" value="{{ request_id }}">
+                    <input type="hidden" name="task_id" value="{{ next_task.id }}">
+                    <input name="action" type="submit" value="Cancel" class="btn btn-warning btn-sm float-end">
+                    <input name="action" type="submit" value="Deny" class="btn btn-danger btn-sm float-end">
+                    <input name="action" type="submit" value="Mark As Completed" class="btn btn-success btn-sm float-end">
+                </form>
+            </div>
+        {% endif %}
+        </div>
+    {% endif %}
+{% endif %}
+<!-- Modal -->
+<div class="modal fade" id="commentModal0" tabindex="-1" aria-labelledby="commentModal0Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="commentModal0Label">Comments</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {% for c in comments|get_value:next_task.tasklist.id %}
+                    <div class="card border-success">
+                        <div class="card-body scroll">
+                            {{ c.content }}
+                        </div>
+                        <div class="card-footer border-success">
+                            <div class="text-end small">Posted {{ c.created|date:"M j, Y @ H:i" }}
+                                by {{ c.email }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="card border-success">
+                    <div class="card-body">
+                    <form action="{% url 'do_comments' %}" method=POST>
+                        <input type="hidden" name="task_id" value="{{ next_task.id }}">
+                        <input type="hidden" name="slug_name" value="{{ slug_name }}">
+                        {% csrf_token %}
+                        <div class="text-center"><textarea name="content" placeholder="Your comments..." cols="70"></textarea></div>
+                        <p></p>
+                        <button type="submit" class="btn btn-secondary btn-sm float-end">Add Comment</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

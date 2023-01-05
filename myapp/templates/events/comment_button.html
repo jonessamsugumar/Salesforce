@@ -1,0 +1,38 @@
+<form action="{% url 'do_comments' %}" method=POST target="_blank">
+    <input type="hidden" name="task_id" value="{{ last_task.id }}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-info btn-sm float-end position-relative">Comments
+    <span class="position-absolute top-10 start-100 translate-middle badge rounded-pill bg-danger">
+        {{ comments.t.tasklist.id|length }}
+    </span>
+    </button>
+</form>
+
+
+<div class="modal fade" id="commentsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <form id="newComment" method="post">
+                    <input type="hidden" name="csrfToken" value="7baa20a4ca3dbadfcb36005d1fa3545c203e0cb1-1653079604076-84091996d8aa24d8c87fce39"/>
+                    <div class="form-group">
+                        <textarea name="contents" class="form-control" rows="3" placeholder="Your comments..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Comment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="display: inline-block">
+    <button class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#commentsModal" data-requestslug="open-source-j2-test-framework" data-taskid="7814">
+        <span class="glyphicon glyphicon-comment"></span>
+        3 Comments
+    </button>
+</div>

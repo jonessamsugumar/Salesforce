@@ -1,0 +1,79 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <title>OSS Request Comments</title>
+    <style>
+        body {
+            background: #f4f4f4;
+        }
+
+        .preformatted {
+            font-family: monospace;
+            white-space: pre;
+            color: lightgrey;
+            font-size: x-small;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous">
+    </script>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand">Comments:</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        </div>
+    </div>
+    <div class="preformatted">&lt;{{ auth_email }}&gt;&nbsp;</div>
+</nav>
+<div class="container">
+    {% for c in comments %}
+    <div class="card border-success">
+        <div class="card-body">
+            <div class="card border-success">
+                <div class="card-body scroll">
+                    {{ c.content }}
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-transparent border-success">
+            <p class="text-end small">Posted {{ c.created|date:"M j, Y @ H:i" }}
+                by {{ c.email }}</p>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="card border-success">
+        <form action="{% url 'do_comments' %}" method=POST>
+            {% csrf_token %}
+            <input type="hidden" name="task_id" value="{{ task_id }}">
+            {{ form.as_table }}
+            <input type="submit" value="Submit" class="btn btn-secondary btn-sm float-end">
+        </form>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,9 @@
+<div class="card border-success">
+     <div class="card-body">
+         <table class="table table-striped">
+             <tr><td>Is this a TMP Request?:</td><td> {{ request.tmp_request|yesno }}</td></tr>
+             <tr><td>Already Reviewed under AppExchange Review?:</td><td> {{ request.app_ex|yesno }}</td></tr>
+             <tr><td>Already Reviewed under Security Assessment?:</td><td> {{ request.sec_ass|yesno }}</td></tr>
+         </table>
+     </div>
+ </div>

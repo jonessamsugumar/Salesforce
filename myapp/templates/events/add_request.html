@@ -1,0 +1,14 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <br/><br/>
+    <form action="add_request" method=POST>
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if submitted is False %}
+            <input type="submit" value="Submit" class="btn btn-secondary btn-sm float-end">
+        {% endif %}
+    </form>
+
+{% endblock %}

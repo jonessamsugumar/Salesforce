@@ -1,0 +1,110 @@
+#
+# OSC TaskList starts at 9
+#
+- model: myapp.TaskList
+  id: OSC_dlr
+  fields:
+    id: OSC_101
+    name: Open Source 101
+    request_type: OSC
+    description: Have everyone who will contribute <a target='_blank' href='https://docs.google.com/document/d/1DtGcIpKMHrgwyiDhWf0_f1OsnP6lilm90l6vn7OQq6I/edit'>read about patents and how they relate to open source</a>.
+    order: 10
+- model: myapp.TaskList
+  id: OSC_lr
+  fields:
+    id: OSC_lr
+    name: Legal Review
+    request_type: OSC
+    description: Schedule a meeting with Open Source Legal Counsel by visiting <a target='_blank' href='https://sfdc.co/OSSChat'>https://sfdc.co/OSSChat</a>
+    order: 20
+- model: myapp.TaskList
+  id: OSC_la
+  fields:
+    id: OSC_la
+    name: Legal Approval
+    request_type: OSC
+    description: This request must be approved by our Open Source Legal Counsel.
+    order: 30
+- model: myapp.TaskList
+  id: OSC_cc
+  fields:
+    id: OSC_cc
+    name: Contribute code
+    request_type: OSC
+    description: Commit Code / Submit Pull Request
+    order: 40
+
+- model: myapp.Approver
+  fields:
+    tasklist: OSC_101
+    email: requester
+- model: myapp.Approver
+  fields:
+    tasklist: OSC_lr
+    email: requester
+- model: myapp.Approver
+  fields:
+    tasklist: OSC_cc
+    email: requester
+
+- model: myapp.Approver
+  fields:
+    tasklist: OSC_la
+    email: jolsen@salesforce.com
+- model: myapp.Approver
+  fields:
+    tasklist: OSC_la
+    email: michael.guo@salesforce.com
+- model: myapp.Approver
+  fields:
+    tasklist: OSC_la
+    email: helen.li@salesforce.com
+- model: myapp.Approver
+  fields:
+    tasklist: OSC_la
+    email: bmeredith@salesforce.com
+- model: myapp.Approver
+  fields:
+    tasklist: OSC_la
+    email: jchiang@slack-corp.com
+
+- model: myapp.Admin
+  fields:
+    type: OSC
+    email: jjagielski@salesforce.com
+- model: myapp.Admin
+  fields:
+    type: OSC
+    email: dmurray@salesforce.com
+- model: myapp.Admin
+  fields:
+    type: OSC
+    email: anish.bhatt@salesforce.com
+- model: myapp.Admin
+  fields:
+    type: OSC
+    email: ivarley@salesforce.com
+- model: myapp.Admin
+  fields:
+    type: OSC
+    email: dsatya@salesforce.com
+- model: myapp.Admin
+  fields:
+    type: OSC
+    email: dbrecht@salesforce.com
+- model: myapp.Admin
+  fields:
+    type: OSC
+    email: jmeier@salesforce.com
+- model: myapp.Admin
+  fields:
+    type: OSC
+    email: andrey.falko@salesforce.com
+- model: myapp.Admin
+  fields:
+    type: OSC
+    email: mcarlise@salesforce.com
+- model: myapp.Admin
+  fields:
+    type: OSC
+    email: jsamsugumar@salesforce.com

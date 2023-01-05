@@ -1,0 +1,80 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+    {% autoescape off %}{{ message }}{% endautoescape %}
+    {% include oss_data %}
+    {% for t in tasks %}
+        {% if t.state == 5 %}
+        <div class="card border-warning">
+        {% else %}
+            <div class="card border-success">
+        {% endif %}
+            <div class="card-body">
+                {% if t.state == 5 %}
+                    <h5 class="card-header bg-warning text-light">{{ t.tasklist.name }}</h5>
+                {% else %}
+                    <h5 class="card-header bg-success text-light">{{ t.tasklist.name }}</h5>
+                {% endif %}
+                <p class="card-text">{{ t.tasklist.description|safe }}</p>
+            </div>
+            {% if t.tasklist.html_file is not None %}
+                {% include t.tasklist.html_file %}
+            {% endif %}
+            {% if t.state == 5 %}
+            <div class="card-footer border-warning">
+            {% else %}
+            <div class="card-footer border-success">
+            {% endif %}
+                <div class="small">Completed {{ t.closed|date:"M j, Y @ H:i" }} by {{ t.email }}</div>
+                {% if t.action_response is not None %}
+                    <div class="small">[Note: <i>{{ t.action_response }}</i>]</div
+                {% endif %}
+                <!-- Button trigger modal -->
+                <button type="submit" class="btn btn-secondary btn-sm float-end position-relative" data-bs-toggle="modal"
+                        data-bs-target="#commentModal{{ forloop.counter }}">Comments
+                    <span class="position-absolute top-10 start-100 translate-middle badge rounded-pill bg-danger">
+                    {{ comments|get_value:t.tasklist.id|length }}
+                </span>
+                </button>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="commentModal{{ forloop.counter }}" tabindex="-1" aria-labelledby="commentModal{{ forloop.counter }}Label" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="commentModal{{ forloop.counter }}Label">Comments</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {% for c in comments|get_value:t.tasklist.id %}
+                            <div class="card border-success">
+                                <div class="card-body scroll">
+                                    {{ c.content }}
+                                </div>
+                                <div class="card-footer border-success">
+                                    <div class="text-end small">Posted {{ c.created|date:"M j, Y @ H:i" }}
+                                        by {{ c.email }}</div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class="card border-success">
+                            <div class="card-body">
+                            <form action="{% url 'do_comments' %}" method=POST>
+                                <input type="hidden" name="task_id" value="{{ t.id }}">
+                                <input type="hidden" name="slug_name" value="{{ slug_name }}">
+                                {% csrf_token %}
+                                <div class="text-center"><textarea name="content" placeholder="Your comments..." cols="70"></textarea></div>
+                                <p></p>
+                                <button type="submit" class="btn btn-secondary btn-sm float-end">Add Comment</button>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% include 'events/next_task.html' %}
+{% endblock %}
+

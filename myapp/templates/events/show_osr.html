@@ -1,0 +1,27 @@
+ <div class="card border-success">
+        <div class="card-body">
+            <h3 class="card-header bg-success text-light">{{ request }}</h3>
+            <div class="card border-success">
+                <div class="card-body">
+                    <table class="table table-light table-striped table-hover">
+                        <tr><td>Project Name:</td><td> {{ request.project_name }}</td></tr>
+                        <tr><td>Work Nature:</td><td> {{ request.work_nature|form_work_nature }}</td></tr>
+                        <tr><td>VP Email:</td><td> {{ request.vp_email }}</td></tr>
+                        <tr><td>VP Approval:</td><td> {{ request.vp_approval|yesno }}</td></tr>
+                        <tr><td>Manager Email:</td><td> {{ request.manager_email }}</td></tr>
+                        <tr><td>Manager Approval:</td><td> {{ request.manager_approval|yesno }}</td></tr>
+                        <tr><td>First Time with Open Source:</td><td> {{ request.first_time|yesno }}</td></tr>
+                        <tr><td>Current Repository Url:</td><td> {{ request.current_repository_url }}</td></tr>
+                        <tr><td>License:</td><td> {{ request.license|form_license }}</td></tr>
+                        <tr><td>Readme URL:</td><td> {{ request.readme_url }}</td></tr>
+                        <tr><td>Any Third Party Code:</td><td> {{ request.third_party_code|yesno }}</td></tr>
+                        <tr><td>Cloud/Product Ecosystem:</td><td> {{ request.product_ecosystem }}</td></tr>
+                        <tr><td>Relation To Product:</td><td> {{ request.relation_to_product|form_relation }}</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-transparent border-success">
+            <div class="small">Opened {{ request.request_id.opened|date:"M j, Y @ H:i" }} by {{ request.request_id.requester }}</div>
+        </div>
+ </div>

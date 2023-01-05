@@ -1,0 +1,32 @@
+<div class="card border-success">
+       <div class="card-body">
+           <h3 class="card-header bg-success text-light">{{ request }}</h3>
+           <div class="card border-success">
+               <div class="card-body">
+                   <table class="table table-light table-striped table-hover">
+                       <tr><td>Request Name:</td><td>{{ request.request_name }}</td></tr>
+                       <tr><td>Project Name:</td><td>{{ request.project_name }}</td></tr>
+                       <tr><td>Work Nature:</td><td>{{ request.work_nature|form_work_nature }}</td></tr>
+                       <tr><td>Manager Email:</td><td>{{ request.manager_email }}</td></tr>
+                       <tr><td>Manager Approval:</td><td>{{ request.manager_approval|yesno }}</td></tr>
+                       <tr><td>First Time with Open Source:</td><td> {{ request.first_time|yesno }}</td></tr>
+                       <tr><td>Current Repository Url:</td><td>{{ request.current_repository_url }}</td></tr>
+                       <tr><td>License:</td><td>{{ request.license|form_license }}</td></tr>
+                       <tr><td>Project have CLA/DCO:</td><td>{{ request.have_cla|yesno }}</td></tr>
+                       <tr><td>URL of CLA/DCO:</td><td>{{ request.cla_url }}</td></tr>
+                       <tr><td>Size Of Change:</td><td>
+                           {% if request.size_of_change == 'MORE' %}
+                               More than 100 lines of code
+                           {% else %}
+                               100 lines of code or less
+                           {% endif %}
+                       </td></tr>
+                       <tr><td>Scope:</td><td>{{ request.scope }}</td></tr>
+                   </table>
+               </div>
+           </div>
+       </div>
+       <div class="card-footer bg-transparent border-success">
+           <div class="small">Opened {{ request.request_id.opened|date:"M j, Y @ H:i" }} by {{ request.request_id.requester }}</div>
+       </div>
+   </div>

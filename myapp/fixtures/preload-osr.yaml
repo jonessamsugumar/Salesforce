@@ -1,0 +1,174 @@
+- model: myapp.TaskList
+  id: OSR_dlr
+  fields:
+    id: OSR_dlr
+    name: Dependency License Report
+    request_type: OSR
+    description: Please provide a report of the licenses used for the full dependency graph by following <a target='_blank' href='https://docs.google.com/document/d/1LJy_3dQqW4wfLhaX5sYBg2-NXkzxfQa2VtDALMOQ68k/edit'>these instructions</a>.
+    order: 10
+    html_file: events/osr_dlr.html
+- model: myapp.TaskList
+  id: OSR_lr
+  fields:
+    id: OSR_lr
+    name: Legal Review
+    request_type: OSR
+    description: Schedule a meeting with Open Source Legal Counsel by visiting <a target='_blank' href='https://sfdc.co/OSSChat'>https://sfdc.co/OSSChat</a>
+    order: 20
+- model: myapp.TaskList
+  id: OSR_gri
+  fields:
+    id: OSR_gri
+    name: Github Repo Info
+    request_type: OSR
+    description: Tell us how you'd like your GitHub repository configured. For the Salesforce employees you'd like to provide access to, have them join the GitHub orgs ahead of time. Checkout <a target='_blank' href='https://ospo.sfdc.sh'>The OSPO Portal</a>. Repo and Admin must conform to "slug" rulz (numbers, lower-case letters, '-' and '_').
+    order: 30
+    html_file: events/osr_gri.html
+- model: myapp.TaskList
+  id: OSR_gri
+  fields:
+    id: OSR_grc
+    name: Github Repo Creation
+    request_type: OSR
+    description: Create requested GitHub repo.
+    order: 40
+- model: myapp.TaskList
+  id: OSR_la
+  fields:
+    id: OSR_la
+    name: Legal Approval
+    request_type: OSR
+    description: This request must be approved by our Open Source Legal Counsel.
+    order: 50
+- model: myapp.TaskList
+  id: OSR_synr
+  fields:
+    id: OSR_synr
+    name: Setup Your New Repository
+    request_type: OSR
+    description: Squash your git commits, push your code to your repo, and copy the <code>CODEOWNERS</code>, <code>CODE_OF_CONDUCT.md</code>, <code>SECURITY.md</code> and <code>LICENSE.txt</code> files from <a target='_blank' href='https://github.com/salesforce/oss-template/'>here</a> to the project.
+    order: 60
+- model: myapp.TaskList
+  id: OSR_psr
+  fields:
+    id: OSR_psr
+    name: ProdSec Review
+    request_type: OSR
+    description: Provide information required to request ProdSec Review.
+    order: 70
+    html_file: events/osr_psr.html
+- model: myapp.TaskList
+  id: OSR_psa
+  fields:
+    id: OSR_psa
+    name: ProdSec Approval
+    request_type: OSR
+    description: This request must be approved by ProdSec.
+    order: 80
+- model: myapp.TaskList
+  id: OSR_pr
+  fields:
+    id: OSR_pr
+    name: Preflight Review
+    request_type: OSR
+    description: Review the GitHub repo before it is made public. Verify required files and headers, nothing Salesforce internal, etc. Please wait for Legal and Security Approvals before marking this task complete.
+    order: 90
+- model: myapp.TaskList
+  id: OSR_sp
+  fields:
+    id: OSR_sp
+    name: Switch Public
+    request_type: OSR
+    description: OSPO/OSS-Core to switch repo to Public
+    order: 100
+
+- model: myapp.Approver
+  fields:
+    tasklist: OSR_dlr
+    email: requester
+- model: myapp.Approver
+  fields:
+    tasklist: OSR_lr
+    email: requester
+- model: myapp.Approver
+  fields:
+    tasklist: OSR_gri
+    email: requester
+- model: myapp.Approver
+  fields:
+    tasklist: OSR_synr
+    email: requester
+- model: myapp.Approver
+  fields:
+    tasklist: OSR_pr
+    email: requester
+- model: myapp.Approver
+  fields:
+    tasklist: OSR_psr
+    email: requester
+
+- model: myapp.Approver
+  fields:
+    tasklist: OSR_la
+    email: jolsen@salesforce.com
+- model: myapp.Approver
+  fields:
+    tasklist: OSR_la
+    email: michael.guo@salesforce.com
+- model: myapp.Approver
+  fields:
+    tasklist: OSR_la
+    email: helen.li@salesforce.com
+- model: myapp.Approver
+  fields:
+    tasklist: OSR_la
+    email: bmeredith@salesforce.com
+- model: myapp.Approver
+  fields:
+    tasklist: OSR_la
+    email: jchiang@slack-corp.com
+- model: myapp.Approver
+  fields:
+    tasklist: OSR_psa
+    email: roy.davis@salesforce.com
+
+- model: myapp.Admin
+  fields:
+    type: OSR
+    email: jjagielski@salesforce.com
+- model: myapp.Admin
+  fields:
+    type: OSR
+    email: dmurray@salesforce.com
+- model: myapp.Admin
+  fields:
+    type: OSR
+    email: anish.bhatt@salesforce.com
+- model: myapp.Admin
+  fields:
+    type: OSR
+    email: ivarley@salesforce.com
+- model: myapp.Admin
+  fields:
+    type: OSR
+    email: dsatya@salesforce.com
+- model: myapp.Admin
+  fields:
+    type: OSR
+    email: dbrecht@salesforce.com
+- model: myapp.Admin
+  fields:
+    type: OSR
+    email: jmeier@salesforce.com
+- model: myapp.Admin
+  fields:
+    type: OSR
+    email: andrey.falko@salesforce.com
+- model: myapp.Admin
+  fields:
+    type: OSR
+    email: mcarlise@salesforce.com
+- model: myapp.Admin
+  fields:
+    type: OSR
+    email: jsamsugumar@salesforce.com

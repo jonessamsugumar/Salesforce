@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">OSPO Open Source Request Tool</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="btn btn-secondary btn-sm" data-bs-toggle="tooltip" data-bs-placement="left"
+                       title="Create new Open Source Request"
+                       href="{% url 'new_request' %}">New Request</a>
+                </li>
+                <li>&nbsp;</li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button id="listReq" class="btn btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" type="button"><span data-bs-toggle="tooltip" data-bs-placement="right" title="List Requests">Requests</span></button>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="ListReq">
+                            <li><a class="dropdown-item" href="{% url 'list_requests' %}">All Requests</a></li>
+                            <li><a class="dropdown-item" href="{% url 'list_requests' %}?req=mine">Your Requests</a></li>
+                            <li><a class="dropdown-item" href="{% url 'list_requests' %}?req=OSR">Open Source Release Requests</a></li>
+                            <li><a class="dropdown-item" href="{% url 'list_requests' %}?req=OSC">Open Source Contribution Requests</a></li>
+                            <li><a class="dropdown-item" href="{% url 'list_requests' %}?req=LAB">Salesforce Labs Requests</a></li>
+                            <li><a class="dropdown-item" href="{% url 'list_requests' %}?req=RES">Salesforce Research Requests</a></li>
+                          </ul>
+                    </div>
+                </li>
+            </ul>
+            <form class="d-flex" method=POST
+                  action="{% url 'search_requests' %}">
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" placeholder="Search Requests" aria-label="Search"
+                       name="searched">
+                <button class="btn btn-secondary btn-sm" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    <div class="preformatted">&lt;{{ auth_email }}&gt;&nbsp;</div>
+</nav>

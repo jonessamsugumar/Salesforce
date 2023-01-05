@@ -1,0 +1,21 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ request }}</h5>
+            <ul>
+                <li>Request Name: {{ request.request_name }}</li>
+                <li>Start With: {{ request.start_with }}</li>
+                <li>Repository Name: {{ request.repository_name }}</li>
+                <li>Project Description: {{ request.project_description }}</li>
+                <li>Lab App: {{ request.lab_app }}</li>
+                <li>Author: {{ request.author }}</li>
+                <li>Security: {{ request.security }}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card-footer bg-transparent border-success">
+        <div class="small">Opened {{ request.request_id.opened|date:"M j, Y @ H:i" }} by {{ request.request_id.requester }}</div>
+     </div>
+{% endblock %}
